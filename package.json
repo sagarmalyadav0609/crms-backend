@@ -18,6 +18,7 @@
   "homepage": "https://github.com/sagarmalyadav0609/crms-backend#readme",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "http-status-codes": "^2.3.0",

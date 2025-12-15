@@ -10,6 +10,15 @@ const fun = async(req,res)=>{
 }
 
 
+const signIn = async(req,res)=>{
+    try {
+        const {email,password}= req.body
+    } catch (error) {
+        
+    }
+}
+
+
 module.exports = {
     fun
 }

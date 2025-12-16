@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 
 app.use("/", mainRoutes )
-// Utility.encryptedPassword('sagar@4321')
+Utility.encryptedPassword('shyam@4321')
 
 app.listen(ServerConfig.PORT,()=>{
     console.log(`server is running on ${ServerConfig.PORT}`)

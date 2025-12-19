@@ -51,6 +51,44 @@ const signIn = async(req,res)=>{
     }
 }
 
+
+
+const signOut = async(req,res)=>{
+      try {
+          const token = req.headers.authorization;
+        if(!token){
+            ErrorResponse.error.message = "token is missing";
+            return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
+        }
+        const getAdmin = await Admin.findOne({
+            where:{
+                jwt_token:token,
+            }
+        });
+        if(!getAdmin){
+            ErrorResponse.error.message = "admin doesnot exists / invalid or expired token";
+            return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
+        }
+
+        await Admin.update(
+            {
+                jwt_token:null,
+            },
+            {
+                where:{
+                    id:getAdmin.id
+                }
+            }
+        );
+        SuccessResponse.message = "logout successfully";
+        SuccessResponse.data = {}
+        return res.status(StatusCodes.OK).json(SuccessResponse)
+      } catch (error) {
+        ErrorResponse.error.message = "internal server error";
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse)
+      }
+};
 module.exports = {
-    signIn
+    signIn,
+    signOut
 }

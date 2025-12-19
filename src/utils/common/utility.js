@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+// const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const { ServerConfig } = require('../../config');
+// const { JWT_SECRET } = require('../../config/server.config');
 
 function encryptedPassword  (plainPassword){
-console.log(bcrypt.hashSync(plainPassword,saltRounds))
+console.log(bcrypt.hashSync(plainPassword,ServerConfig.SALT_ROUNDS))
 }
 
 const comparePassword =async (plainPassword,encryptedPassword)=>{
@@ -19,7 +21,9 @@ const comparePassword =async (plainPassword,encryptedPassword)=>{
 }
 
 const generateJwtToken=(values)=>{
-return jwt.sign(values,'JWT@SWCR#eT12',{ expiresIn: '3d' })
+return jwt.sign(values,
+    ServerConfig.JWT_SECRET,
+    {expiresIn:ServerConfig.JWT_EXPIRES_IN})
 }
 module.exports ={
     encryptedPassword,

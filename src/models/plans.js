@@ -14,31 +14,45 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   plans.init({
-      name: {
-        type: DataTypes.STRING
+     name: {
+        type: DataTypes.STRING(100),
+        allowNull:false,
+        unique:true
       },
       featurs: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT,
+        allowNull:false
       },
-      validation: {
-        type: DataTypes.STRING
+      validity: {
+        type: DataTypes.STRING,
+        allowNull:false
       },
       base_price: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:false
       },
       offer_price: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:true
       },
       student_limit: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:false,
+        defaultValue:0
       },
       team_limit: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:false,
+        defaultValue:1
       },
-
+      status:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false,
+        defaultValue:true,
+      },
   }, {
     sequelize,
-    modelName: 'plans',
+    modelName: 'Plans',
   });
   return plans;
 };

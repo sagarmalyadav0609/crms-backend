@@ -10,22 +10,48 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       plan_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          model:'Plans',
+          key:'id',
+        },
+        onUpdate:'CASCADE',
+        onDelete:'RESTRICT',
       },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          model:"Users",
+          key:'id',
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
       },
       start_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:false,
+
       },
       end_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:false,
       },
       purchase_price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull:false,
       },
       payment_info: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:true,
+        comment:'Transaction details/screenshot from geteway'
+
+      },
+      status:{
+        type:Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue:'ACTIVE',
       },
       createdAt: {
         allowNull: false,

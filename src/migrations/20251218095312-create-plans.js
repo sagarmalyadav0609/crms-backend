@@ -10,25 +10,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100),
+        allowNull:false,
+        unique:true
       },
-      featurs: {
-        type: Sequelize.STRING
+      features: {
+        type: Sequelize.TEXT,
+        allowNull:false
       },
-      validation: {
-        type: Sequelize.STRING
+      validity: {
+        type: Sequelize.STRING,
+        allowNull:false
       },
       base_price: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       offer_price: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:true
       },
       student_limit: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
+        defaultValue:0
       },
       team_limit: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
+        defaultValue:1
+      },
+      status:{
+        type:Sequelize.BOOLEAN,
+        allowNull:false,
+        defaultValue:true,
       },
       
       createdAt: {

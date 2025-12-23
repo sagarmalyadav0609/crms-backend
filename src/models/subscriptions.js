@@ -14,23 +14,49 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Subscriptions.init({
-    plan_id: {
-        type: DataTypes.INTEGER
+      plan_id: {
+        type: DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+          model:'Plans',
+          key:'id',
+        },
+        onUpdate:'CASCADE',
+        onDelete:'RESTRICT',
       },
       user_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull:false,
+        references:{
+          model:"Users",
+          key:'id',
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
       },
       start_date: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull:false,
+
       },
       end_date: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull:false,
       },
       purchase_price: {
-        type: DataTypes.INTEGER
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull:false,
       },
       payment_info: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:true,
+        comment:'Transaction details/screenshot from geteway'
+
+      },
+      status:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false,
+        defaultValue:'ACTIVE',
       },
   }, {
     sequelize,

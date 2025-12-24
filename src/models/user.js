@@ -10,34 +10,53 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasOne(models.User_details,{
+        foreignKey: "user_id",
+        as: "User_details",
+        onDelete:"CASCADE",
+        onUpdate:"CASCDE",
+      });
+    
     }
   }
   User.init({
-     name: {
-        type: DataTypes.STRING(50),
-        allowNull:false
-      },
-      email: {
-        type: DataTypes.STRING,
-        validate:{
-          isEmail:true,
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      validate: {
+        len: {
+          args: [3, 50],
+          msg: "name must be between 3 and 50 characters." // Custom message
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          // type:true,
+          msg: 'email is not valid',
 
         },
-        unique:true,
-        allowNull:false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull:false
+        notNull: {
+          msg: 'Email is required'
+        },
 
       },
-      status: {
-        type: DataTypes.BOOLEAN,
-        defaultValue:true,
-        allowNull:false
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
 
-      },
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
+
+    },
   }, {
     sequelize,
     modelName: 'User',

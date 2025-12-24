@@ -6,6 +6,7 @@ const { ServerConfig } = require("../../config");
 const validateCreateuser = async(req,res,next)=>{
        try {
         const {name,email,password} = req.body;
+        
        if(!name || !email || !password){
         ErrorResponse.message = 'All fields are required'
         ErrorResponse.error.explaination = 'Name / Email / password is missing'

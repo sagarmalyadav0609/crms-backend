@@ -1,5 +1,6 @@
 module.exports = {
     UserController:require("./users.controllers"),
     AuthController:require('./auth.controllers'),
-    UserDetailsController:require('./user_detailes.controllers')
+    UserDetailsController:require('./user_detailes.controllers'),
+    PlanController:require('./plan.controller')
 }

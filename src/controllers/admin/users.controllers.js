@@ -66,9 +66,80 @@ const getUser = async (req, res) => {
         ErrorResponse.message = "Internal server error";
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
     }
+};
+
+const toggleIsBlocked = async(req,res)=>{
+      try {
+        const userId = req.params.id;
+
+       const user = await User.findByPk(userId)
+
+    // console.log(user,'**************************')
+
+      if(!user){
+        ErrorResponse.message = 'user not found';
+        return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse)
+
+
+      }
+      const updateIsBlocked = !user.isBlocked;
+
+      await User.update(
+        {
+            isBlocked:updateIsBlocked,
+        },
+        {
+            where:{
+                id: userId,
+
+            }
+        },
+      );
+      SuccessResponse.message = `User ${updateIsBlocked ? 'Blocked':'UnBlocked'} Successfully`
+      SuccessResponse.data = {
+        id:userId,
+        isBlocked:updateIsBlocked
+      }
+      return res.status(StatusCodes.OK).json(SuccessResponse)
+      } catch (error) {
+        //   console.log(error,'************88')
+        ErrorResponse.message = "Somthing went to wrong in toggle case";
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);
+
+    }
+
+
+         
 }
+
+const changePassword = async(req,res)=>{
+    try {
+       const userId = req.params.id
+       const hashedPassword = req.hashedPassword
+       
+       await User.update(
+        {
+            password:hashedPassword
+        },{
+            where:{
+                id:userId
+            }
+        }
+       )
+       SuccessResponse.message = "password change sussfully";
+       SuccessResponse.data = {};
+       return res.status(StatusCodes.OK).json(SuccessResponse)
+    } catch (error) {
+        ErrorResponse.message = "Somthing went to wrong in change password"
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse)
+    }
+}
+
+
 module.exports = {
     onBoard,
-    getUser
+    getUser,
+    toggleIsBlocked,
+    changePassword
 }
 

@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: [3, 50],
+          args: [3,50],
           msg: "name must be between 3 and 50 characters." // Custom message
         }
       }
@@ -35,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: {
           // type:true,
-          msg: 'email is not valid',
-
+          msg: 'email is not valid', 
+ 
         },
         notNull: {
           msg: 'Email is required'
@@ -49,7 +49,16 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-
+    },
+    jwt_token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue:null
+    },
+    isBlocked: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:true,
     },
     status: {
       type: DataTypes.BOOLEAN,
